@@ -86,7 +86,6 @@ public class StringCode {
      * "":分配了内存空间，值为空字符串，是相对的空，是一种有值（值 = 空字串）
      * null:是未分配内存空间，无值，是一种无值(值不存在)
      * isEmpty() 和 ""与null相对
-     *
      * char value[]={f,i,r,s,t}
      */
     public static void testNull(String str){
