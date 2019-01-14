@@ -14,7 +14,6 @@ public class TestObject {
         //getClass().getName() + "@" + Integer.toHexString(hashCode());
         //十六进制字符串
         //toUnsignedString0(i, 4);todo
-
         System.out.println(o.toString());//java.lang.Object@762efe5d
         o.notify();//java.lang.IllegalMonitorStateException
                         //at java.lang.Object.notify(Native Method)
