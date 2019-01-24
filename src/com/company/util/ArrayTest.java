@@ -8,7 +8,23 @@ package com.company.util;
  */
 public class ArrayTest {
     public static void main(String[] args) {
-        testQueue();
+        testLoopQueue();
+    }
+
+    public static  void  testLoopQueue(){
+        LoopQueue<Integer> queue = new LoopQueue<>(5);
+        System.out.println(queue);
+        for (int i=0;i<7;i++)
+            queue.enqueue(i);
+
+        System.out.println(queue);
+        System.out.println("\n");
+        for (int i=0;i<3;i++){
+            queue.dequeue();
+            System.out.println(queue);
+            System.out.println("\n");
+        }
+
     }
 
 
