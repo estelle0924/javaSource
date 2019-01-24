@@ -75,17 +75,26 @@ public class Array<E> {
      * @param arr   需要插入的元素
      */
     public void add(int index, E arr) {
-        if (size == data.length)//todo 需要新增方法
-            throw new IllegalArgumentException("数组空间已满");
         //保证index合法 1.索引大于0 2.index大于size元素不是紧密排列的,会存在一些位置没有合法元素
         if (index < 0 || index > size)
             throw new IllegalArgumentException("index参数不合法");
+
+        //数组扩容
+        if (size == data.length)//todo 需要新增方法
+            resize(2 * data.length);//2倍扩容
 
         for (int i = size - 1; i >= index; i--)//从后向前遍历
             data[i + 1] = data[i];//元素后移
 
         data[index] = arr;
         size++;
+    }
+
+    private void resize(int newCapacity) {
+        E[] newData = (E[]) new Object[newCapacity];
+        for (int i = 0; i < size; i++)
+            newData[i] = data[i];
+        data = newData;
     }
 
 
@@ -96,7 +105,16 @@ public class Array<E> {
      * @return
      */
     E get(int index) {
+        if (index<0 || index >size )
+            throw new IllegalArgumentException("索引不合法");
         return data[index];
+    }
+
+    E getFirst(){
+        return get(0);
+    }
+    E getLast(){
+        return get(size);
     }
 
     /**
@@ -132,18 +150,33 @@ public class Array<E> {
      * 删除指定索引的元素
      *
      * @param index
-     * @return
+     * @return 删除的元素
      */
-    public void remove(int index) {
+    public E remove(int index) {
         if (index < 0 || index > size)
             throw new IllegalArgumentException("索引不合法");
+        E e=data[index];
         for (int i = index; i < size; i++) {
             data[i] = data[i + 1];
         }
         size--;
-        data[size]=null;//释放资源 可以被垃圾回收机制回收 也可以不释放等到下次添加元素的时候再被回收
+        data[size] = null;//释放资源 可以被垃圾回收机制回收 也可以不释放等到下次添加元素的时候再被回收
         // todo loitering objects != memory leak
+        //进行容器缩容
+        if (size<=data.length/2)
+            resize(data.length/2);
+        return e;
     }
+
+    public E removeFirst(){
+        return remove(0);
+    }
+
+    public E removeLast(){
+        return remove(size);
+    }
+
+
 
     /**
      * 删除指定元素(删除第一次出现的指定元素)
