@@ -63,7 +63,7 @@ public class LinkedList<E> {
         if (index < 0 || index >= size)
             throw new IllegalArgumentException("索引非法");
 
-        Node pro = dummyHead;
+        Node pro = dummyHead.next;
         for (int i = 0; i < index; i++)
             pro = pro.next;
         return (E) pro.e;
@@ -81,15 +81,22 @@ public class LinkedList<E> {
         if (index < 0 || index >= size)
             throw new IllegalArgumentException("索引非法");
 
-        Node pro = dummyHead.next;//上个元素
+        Node pro = dummyHead;//上个元素
         Node cur = pro.next;
-        for (int i = 0; i < index - 2; i++) {
+        for (int i = 0; i < index - 1; i++) {
             pro = pro.next;
         }
         pro.next = cur.next;
         cur.next = null;
         size--;
         return (E) pro.e;
+    }
+    public E removeHead(){
+        return remove(0);
+    }
+
+    public E removeFront(){
+        return remove(size);
     }
 
     public void removeAll() {
